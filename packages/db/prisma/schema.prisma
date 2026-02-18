@@ -45,6 +45,7 @@ model ApiKey {
 model Company {
   id  Int @id @default(autoincrement())
   name  String
+  slug    String // Ex: "openai/gpt-5.2"
   website String
   models Model[]
 }
