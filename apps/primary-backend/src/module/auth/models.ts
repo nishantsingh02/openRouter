@@ -31,7 +31,7 @@ export namespace AuthModel {
     export type signUpResponseSchema = typeof signupResponse.static
 
     export const signupInvalid = t.Object({
-        message: t.Literal("'Invalid username or password'")
+        message: t.Literal("Error while signing up")
     })
     export type signUpInvalid = typeof signupInvalid.static
 }

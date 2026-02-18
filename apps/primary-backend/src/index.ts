@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { app as authApp } from "./module/auth";
+import "dotenv/config";
 
 const app = new Elysia().use(authApp).listen(3000);
 

@@ -1,12 +1,23 @@
-import Elysia from "elysia";
+import { config } from 'dotenv';
+config({ path: '../../../packages/db/.env' });
+
+import Elysia, { status } from "elysia";
 import { AuthModel } from "./models";
 import { AuthService } from "./service";
 
-export const app = new Elysia({ prefix: "auth" })
-    .post("/sign-up", async ({ body }) => {
-        const userId = await AuthService.signUp({email: body.email, password: body.password})
+
+export const app = new Elysia({ prefix: "/auth" })
+    .post("/sign-up", async ({ body, status }) => {
+        try {
+            const userId = await AuthService.signUp({email: body.email, password: body.password})
         return {
             id: String(userId) // bcz we store userId as int not string in db
+        }
+        } catch (e) {
+            console.error(e)
+            return status(400, {
+                message: "Error while signing up"
+            })
         }
     }, {
         body: AuthModel.signupSchema,
