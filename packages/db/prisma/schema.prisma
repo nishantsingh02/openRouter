@@ -13,3 +13,79 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id   Int @id @default(autoincrement())
+  email String @unique
+  password  String
+  credits Int @default(0)
+  apiKeys ApiKey[]
+  onrampTranseaction  OnrampTranseaction[]
+  conversations Conversation[]
+}
+
+model Model {
+id  Int @id @default(autoincrement())
+name  String
+companyId Int
+company Company @relation(fields: [companyId], references: [id])
+modelProviderMappings ModelProviderMapping[]
+}
+
+model ApiKey {
+  id Int @id @default(autoincrement())
+  userId Int
+  name String
+  apiKey  String @unique
+  disabled  Boolean @default(false)
+  deleted  Boolean @default(false)//Not physically deleted from the database; only marked as true (soft delete) to maintain foreign key relationships and prevent data loss in related tables.
+  user  User @relation(fields: [userId], references: [id])
+  conversations Conversation[]
+}
+
+model Company {
+  id  Int @id @default(autoincrement())
+  name  String
+  website String
+  models Model[]
+}
+
+model Provider {
+  id  Int @id @default(autoincrement())
+  name String
+  website String
+  modelProviderMappings ModelProviderMapping[] // means provide have many enteres in this table
+}
+
+model ModelProviderMapping {
+  id Int @id @default(autoincrement())
+  modelId Int
+  providerId  Int
+  inputTokenCost Int
+  outputTokenCost Int
+  model Model @relation(fields: [modelId], references: [id])
+  provider Provider @relation(fields: [providerId], references: [id])
+  conversations Conversation[]
+}
+
+// razerpay specific end point  
+model OnrampTranseaction {
+  id Int  @id @default(autoincrement())
+  userId Int
+  amount Int
+  Status String
+  user  User @relation(fields: [userId], references: [id])
+}
+
+model Conversation {
+ id Int @id @default(autoincrement())
+ userId Int
+ apiKeyId Int
+ modelProviderMappingId Int
+ input String
+ output String
+ inputTokenCount Int
+ outputTakenCount Int
+ user User @relation(fields: [userId], references: [id])
+ apiKey ApiKey  @relation(fields: [apiKeyId], references: [id])
+ modelProviderMapping ModelProviderMapping @relation(fields: [modelProviderMappingId], references: [id])
+}
