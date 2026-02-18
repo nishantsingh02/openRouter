@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  // id   String @id @default(uuid())
+  id   Int @id @default(autoincrement())
+  email String @unique
+  password  String
+  credits Int @default(0)
+  apiKeys ApiKey[]
+  onrampTranseaction  OnrampTranseaction[]
+  conversations Conversation[]
+}
+
+model Model {
+id  Int @id @default(autoincrement())
+name  String
+companyId Int
+company Company @relation(fields: [companyId], references: [id])
+modelProviderMappings ModelProviderMapping[]
+}
+
+model ApiKey {
+  id Int @id @default(autoincrement())
+  userId Int
+  name String
+  apiKey  String @unique
+  disabled  Boolean @default(false)
+  deleted  Boolean @default(false)//Not physically deleted from the database; only marked as true (soft delete) to maintain foreign key relationships and prevent data loss in related tables.
+  user  Users @relation(fields: [userId], references: [id])
+  conversations Conversation[]
+}
+
+model Company {
+  id  Int @default(autoincrement())
+  name  String
+  website String
+  models Model[]
+}
+
+model provider {
+  id  Int @id @default(autoincrement())
+  name String
+  website String
+  modelProviderMappings ModelProviderMapping[] // means provide have many enteres in this table
+}
+
+model OnrampTranseaction {
+
+}
+
+model Conversation {
+
+}
+
+model ModelProviderMapping {
+  id Int @id @default(autoincrement())
+  modelId Int
+  providerId  Int
+  inputTokenCost Float
+  outputTokenCost Float
+  model
+}
