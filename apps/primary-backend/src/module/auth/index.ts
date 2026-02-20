@@ -1,9 +1,11 @@
 import { config } from 'dotenv';
 config({ path: '../../../packages/db/.env' });
 
-import Elysia, { status } from "elysia";
+import Elysia from "elysia";
 import { AuthModel } from "./models";
 import { AuthService } from "./service";
+import { secrets } from 'bun';
+import jwt from '@elysiajs/jwt';
 
 
 export const app = new Elysia({ prefix: "/auth" })
@@ -26,10 +28,29 @@ export const app = new Elysia({ prefix: "/auth" })
             400 : AuthModel.signupInvalid
         }
     })
-    .post("/sign-in", async ( {body} ) => {
-        const token = await AuthService.signIn({email: body.email, password: body.password})
+    .use(
+        jwt({
+            name: "jwt",
+            secret: process.env.JWT_SECRET!
+        })
+    )
+    .post("/sign-in", async ( { jwt, body, status, cookie: { auth } } ) => {
+        const {CorrectCredentials, userId} = await AuthService.signIn({email: body.email, password: body.password})
+        if(CorrectCredentials && userId) {
+            const value = await jwt.sign({ userId })
+            // so it set the token to the header automatically we do not need to return the token in the body
+            auth.set({
+            value, // userId for sign the token
+            httpOnly: true,
+            maxAge: 7 * 86400,
+        })
         return {
-            token: String(token)
+            message: "Signed in successfully"
+        }
+        } else {
+            return status(400, {
+                message: "Invalid username or password"
+            })
         }
     }, {
         body: AuthModel.signupSchema,

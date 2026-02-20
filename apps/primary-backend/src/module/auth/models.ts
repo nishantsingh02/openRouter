@@ -8,12 +8,12 @@ export namespace AuthModel {
     export type signInSchema = typeof signinSchema.static
 
     export const signinResponse = t.Object({
-        token: t.String()
+        message: t.Literal("Signed in successfully")
     })
     export type signInResponseSchema = typeof signinResponse.static
 
     export const signinInvalid = t.Object({
-        message: t.Literal("'Invalid username or password'")
+        message: t.Literal("Invalid username or password")
     })
     export type signInInvalid = typeof signinInvalid.static
     

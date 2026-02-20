@@ -6,8 +6,9 @@
     "dev": "bun --env-file .env run src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest",
-    "db": "*"
+    "@elysiajs/jwt": "^1.4.0",
+    "db": "*",
+    "elysia": "latest"
   },
   "devDependencies": {
     "bun-types": "latest"
