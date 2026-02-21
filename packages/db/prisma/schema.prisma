@@ -38,6 +38,8 @@ model ApiKey {
   apiKey  String @unique
   disabled  Boolean @default(false)
   deleted  Boolean @default(false)//Not physically deleted from the database; only marked as true (soft delete) to maintain foreign key relationships and prevent data loss in related tables.
+  lastUsed  DateTime?
+  creditConsumed  Int     @default(0)
   user  User @relation(fields: [userId], references: [id])
   conversations Conversation[]
 }
