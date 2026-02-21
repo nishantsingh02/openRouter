@@ -24,13 +24,12 @@ export const app = new Elysia({ prefix: "/api-keys" })
         if(!decoded || !decoded.userId) {
             return status(401)
         }
-
         return {
             userId: decoded.userId as string // this is now avalable for other routes
         }
     })
     .post("/", async ({ userId, body }) => {
-        const {apiKey, id} = await ApiKeyService.createApiKey(userId, Number(body.name))
+        const {apiKey, id} = await ApiKeyService.createApiKey(body.name, Number(userId))
         return {
             id,
             apiKey
