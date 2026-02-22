@@ -43,20 +43,23 @@ export const app = new Elysia({ prefix: "/api-keys" })
     .get("/", async ({userId}) => {
         const apiKeys = await ApiKeyService.getApikeys(Number(userId))
         return {
-            apiKeys
+            apiKeys: apiKeys.map(key => ({
+                ...key,
+                disable: key.disabled
+            }))
         }
     }, {
         response: {
             200: ApiKeyModel.getApiKeyResponseSchema
         }
     })
-    .put("/", async ({ userId, body, status }) => {
+    .put("/", ({ body, userId, status }) => {
         try {
-            await ApiKeyService.updateApiKeyDisabled(Number(body.id), (Number(userId)), body.disable);
+            ApiKeyService.updateApiKeyDisabled(Number(body.id), Number(userId), body.disabled);
             return {
                 message: "Disabling API-KEY successfully"
             }
-        } catch (err) {
+        } catch(e) {
             return status(411, {
                 message: "Disabling API-KEY unsuccessfully"
             })
@@ -76,7 +79,7 @@ export const app = new Elysia({ prefix: "/api-keys" })
             }
         } catch (e) {
             return status(411, {
-                message: "Disabling API-KEY unsuccessfully"
+                message: "Deleting API-KEY successfully"
             })
         }
     }, {

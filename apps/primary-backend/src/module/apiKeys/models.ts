@@ -16,7 +16,7 @@ export namespace ApiKeyModel {
   // update api key schema
   export const updateApiKeySchema = t.Object({
     id: t.String(),
-    disable: t.Boolean()
+    disabled: t.Boolean()
   });
   export type updateApiKeySchema = typeof updateApiKeySchema.static;
 
@@ -39,6 +39,7 @@ export namespace ApiKeyModel {
         apiKey: t.String(),
         lastUsed: t.Nullable(t.Date()),
         creditConsumed: t.Number(),
+        disable: t.Boolean()
       }),
     ),
   });
@@ -51,7 +52,7 @@ export namespace ApiKeyModel {
   export type deleteApiKeyResponse = typeof deleteApiKeyResponse.static;
 
   export const deleteApiKeyFailedResponse = t.Object({
-    message: t.Literal("Disabling API-KEY unsuccessfully")
+    message: t.Literal("Deleting API-KEY successfully")
   })
   export type deleteApiKeyFailedResponse = typeof deleteApiKeyFailedResponse.static;
 

@@ -44,18 +44,31 @@ export abstract class ApiKeyService {
             name: apiKey.name,
             lastUsed: apiKey.lastUsed,
             creditConsumed: apiKey.creditConsumed,
-            apiKey: apiKey.apiKey
+            apiKey: apiKey.apiKey,
+            disabled: apiKey.disabled
         }))
     }
 
-    static async updateApiKeyDisabled(userId: number, apiKeyId: number, disable: boolean) {
+    // static async updateApiKeyDisabled(userId: number, apiKeyId: number, disabled: boolean) {
+    //     await prisma.apiKey.update({
+    //         where: {
+    //             id: apiKeyId,
+    //             userId
+    //         },
+    //         data: {
+    //             disabled
+    //         }
+    //     })
+    // }
+
+    static async updateApiKeyDisabled(apiKeyId: number, userId: number, disabled: boolean) {
         await prisma.apiKey.update({
             where: {
                 id: apiKeyId,
                 userId
             },
             data: {
-                disabled: true
+                disabled
             }
         })
     }
