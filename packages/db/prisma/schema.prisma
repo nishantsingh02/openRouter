@@ -19,13 +19,14 @@ model User {
   password  String
   credits Int @default(0)
   apiKeys ApiKey[]
-  onrampTranseaction  OnrampTranseaction[]
+  onrampTranseaction  OnrampTransaction[]
   conversations Conversation[]
 }
 
 model Model {
 id  Int @id @default(autoincrement())
 name  String
+slug  String
 companyId Int
 company Company @relation(fields: [companyId], references: [id])
 modelProviderMappings ModelProviderMapping[]
@@ -71,7 +72,7 @@ model ModelProviderMapping {
 }
 
 // razerpay specific end point  
-model OnrampTranseaction {
+model OnrampTransaction {
   id Int  @id @default(autoincrement())
   userId Int
   amount Int
