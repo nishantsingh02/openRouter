@@ -2,7 +2,7 @@ import Elysia from "elysia";
 import { ModelsModel } from "./models";
 import { ModelsService } from "./service";
 
-export const app = new Elysia({ prefix: "models" })
+export const app = new Elysia({ prefix: "/models" })
     .get("/", async () => {
         const models = await ModelsService.getModels();
         return {
@@ -23,7 +23,7 @@ export const app = new Elysia({ prefix: "models" })
             200: ModelsModel.getProvidersResponseSchema
         }
     })
-    // provider for the specific models
+    // It fetches providers for a specific model. The is is the Models id
     .get("/:id/providers", async ({ params: { id } }) => {
         const providers = await ModelsService.getModelProviders(Number(id));
         return {

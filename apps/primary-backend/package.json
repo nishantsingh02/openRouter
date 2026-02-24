@@ -1,6 +1,9 @@
 {
   "name": "app",
   "version": "1.0.50",
+  "export": {
+    "./app": "./src/app.ts"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun --env-file .env run src/index.ts"
