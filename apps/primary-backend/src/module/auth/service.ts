@@ -1,8 +1,6 @@
 import { AuthModel } from "./models";
 import { prisma } from "db";
 import "dotenv/config";
-import { status } from "elysia";
-import { jwt } from "@elysiajs/jwt";
 
 export abstract class AuthService {
     // This method only returns a boolean using early return pattern

@@ -9,7 +9,7 @@
     "dev": "bun --env-file .env run src/index.ts"
   },
   "dependencies": {
-    "@elysiajs/jwt": "^1.4.0",
+    "@elysiajs/jwt": "1.4.0",
     "db": "*",
     "elysia": "1.4.25"
   },

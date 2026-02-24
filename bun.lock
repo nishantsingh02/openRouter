@@ -34,7 +34,7 @@
       "name": "dashboard-frontned",
       "version": "0.0.0",
       "dependencies": {
-        "@elysiajs/eden": "^1.4.8",
+        "@elysiajs/eden": "1.4.8",
         "@tailwindcss/vite": "^4.2.1",
         "app": "*",
         "react": "^19.2.0",
@@ -47,7 +47,7 @@
         "@types/react": "^19.2.7",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^5.1.1",
-        "elysia": "^1.4.25",
+        "elysia": "1.4.25",
         "eslint": "^9.39.1",
         "eslint-plugin-react-hooks": "^7.0.1",
         "eslint-plugin-react-refresh": "^0.4.24",
@@ -61,7 +61,7 @@
       "name": "app",
       "version": "1.0.50",
       "dependencies": {
-        "@elysiajs/jwt": "^1.4.0",
+        "@elysiajs/jwt": "1.4.0",
         "db": "*",
         "elysia": "1.4.25",
       },
