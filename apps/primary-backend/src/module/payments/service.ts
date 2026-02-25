@@ -16,7 +16,8 @@ export abstract class PaymentsService {
                     }
                 }
             }),
-            prisma.onrampTranseaction.create({
+            // prisma.onrampTranseaction
+            prisma.onrampTransaction.create({
                 data: {
                     userId,
                     amount: ONRAMP_AMOUNT,
