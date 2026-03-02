@@ -9,7 +9,9 @@
     "dev": "bun --env-file .env run src/index.ts"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
     "@elysiajs/jwt": "1.4.0",
+    "cors": "^2.8.6",
     "db": "*",
     "elysia": "1.4.25"
   },
