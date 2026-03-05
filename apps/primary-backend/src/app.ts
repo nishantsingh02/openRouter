@@ -10,7 +10,7 @@ export const app = new Elysia()
 .use(
     cors({
       origin: "http://localhost:5173",
-      credentials: true
+      credentials: true,
     })
   )
   .use(authApp)
@@ -19,5 +19,3 @@ export const app = new Elysia()
   .use(paymentsApp)
 
 export type App = typeof app;
-
-
