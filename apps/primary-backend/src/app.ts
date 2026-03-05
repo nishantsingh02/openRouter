@@ -1,3 +1,6 @@
+import { config } from 'dotenv'
+config({path: "../../../packages/db/.env"})
+
 import { Elysia } from "elysia";
 import { app as authApp } from "./module/auth";
 import { app as apiKeyApp } from "./module/apiKeys";

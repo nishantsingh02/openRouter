@@ -11,6 +11,9 @@
 //   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 // );
 
+import "dotenv/config";
+import { config } from 'dotenv'
+config({ path: '../../packages/db/.env' })
 
 import { app } from "./app";
 

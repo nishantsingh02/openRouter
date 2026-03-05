@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config({ path: "../../../packages/db/.env" });
 
-import { Elysia } from "elysia";
+import { Elysia, Cookie } from "elysia";
 import { AuthModel } from "./models";
 import { AuthService } from "./service";
 import jwt from "@elysiajs/jwt";
@@ -47,16 +47,19 @@ export const app = new Elysia({ prefix: "/auth" })
         password: body.password,
       });
       if (CorrectCredentials && userId) {
-        const value = await jwt.sign({ userId });
-        // Set the JWT as an httpOnly cookie so the frontend sends it automatically
+        const token = await jwt.sign({ userId });
+        if (!auth) {
+          auth = new Cookie("auth", {});
+        }
+
         auth.set({
-          value,
+          value: token,
           httpOnly: true,
           maxAge: 7 * 86400,
           path: "/",
-          sameSite: "none",
-          secure: false,
+          sameSite: "lax"
         });
+
         return {
           message: "Signed in successfully",
         };
@@ -74,3 +77,39 @@ export const app = new Elysia({ prefix: "/auth" })
       },
     },
   );
+
+// .post(
+//   "/sign-in",
+//   async ({ jwt, body, status, cookie: { auth } }) => {
+//     const { CorrectCredentials, userId } = await AuthService.signIn({
+//       email: body.email,
+//       password: body.password,
+//     });
+//     if (CorrectCredentials && userId) {
+//       const value = await jwt.sign({ userId });
+//       // Set the JWT as an httpOnly cookie so the frontend sends it automatically
+//       auth.set({
+//         value,
+//         httpOnly: true,
+//         maxAge: 7 * 86400,
+//         path: "/",
+//         sameSite: "none",
+//         secure: false,
+//       });
+//       return {
+//         message: "Signed in successfully",
+//       };
+//     } else {
+//       return status(403, {
+//         message: "Invalid username or password",
+//       });
+//     }
+//   },
+//   {
+//     body: AuthModel.signinSchema,
+//     response: {
+//       200: AuthModel.signinResponse,
+//       403: AuthModel.signinInvalid,
+//     },
+//   },
+// );
