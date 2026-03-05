@@ -36,9 +36,9 @@ export function Dashboard() {
     });
 
     const apiKeys = apiKeysQuery.data?.apiKeys ?? [];
-    const activeKeys = apiKeys.filter((k) => !k.disabled);
+    const activeKeys = apiKeys.filter((k) => !k.disable);
     const totalCreditsUsed = apiKeys.reduce(
-        (sum, k) => sum + (k.credisConsumed ?? 0),
+        (sum, k) => sum + (k.creditConsumed ?? 0),
         0
     );
     const modelCount = modelsQuery.data?.models?.length ?? 0;
@@ -175,8 +175,8 @@ export function Dashboard() {
                                 </Link>
                             </Button>
                         </div>
-                        <div className="rounded-xl border border-border/50 bg-card/30 overflow-hidden">
-                            <table className="w-full text-sm">
+                        <div className="rounded-xl border border-border/50 bg-card/30 overflow-x-auto">
+                            <table className="w-full text-sm min-w-[600px]">
                                 <thead>
                                     <tr className="border-b border-border/50">
                                         <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground">Name</th>
@@ -194,22 +194,20 @@ export function Dashboard() {
                                             </td>
                                             <td className="px-4 py-3">
                                                 <span
-                                                    className={`inline-flex items-center gap-1.5 text-xs font-medium ${
-                                                        key.disabled
+                                                    className={`inline-flex items-center gap-1.5 text-xs font-medium ${key.disable
                                                             ? "text-muted-foreground"
                                                             : "text-emerald-400"
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <span
-                                                        className={`size-1.5 rounded-full ${
-                                                            key.disabled ? "bg-muted-foreground" : "bg-emerald-400"
-                                                        }`}
+                                                        className={`size-1.5 rounded-full ${key.disable ? "bg-muted-foreground" : "bg-emerald-400"
+                                                            }`}
                                                     />
-                                                    {key.disabled ? "Disabled" : "Active"}
+                                                    {key.disable ? "Disabled" : "Active"}
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3 text-right tabular-nums">
-                                                {(key.credisConsumed ?? 0).toLocaleString()}
+                                                {(key.creditConsumed ?? 0).toLocaleString()}
                                             </td>
                                         </tr>
                                     ))}

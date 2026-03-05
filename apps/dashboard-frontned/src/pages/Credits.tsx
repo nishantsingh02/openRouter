@@ -34,10 +34,10 @@ export function Credits() {
 
     const userProfileQuery = useQuery({
         queryKey: ["user-profile"],
-        queryFn: async() => {
+        queryFn: async () => {
             const response = await elysiaClient["auth"].profile.get();
             if (response.error) throw new Error("Error while fetching user details")
-                return response.data;
+            return response.data;
         }
     })
 
@@ -58,7 +58,7 @@ export function Credits() {
 
     const apiKeys = apiKeysQuery.data?.apiKeys ?? [];
     const totalCreditsUsed = apiKeys.reduce(
-        (sum, k) => sum + (k.credisConsumed ?? 0),
+        (sum, k) => sum + (k.creditConsumed ?? 0),
         0
     );
     const credits = userProfileQuery.data?.credits;
@@ -133,7 +133,7 @@ export function Credits() {
                                         <div key={key.id} className="flex items-center justify-between text-sm">
                                             <span className="text-muted-foreground truncate mr-4">{key.name}</span>
                                             <span className="tabular-nums font-medium">
-                                                {(key.credisConsumed ?? 0).toLocaleString()}
+                                                {(key.creditConsumed ?? 0).toLocaleString()}
                                             </span>
                                         </div>
                                     ))}

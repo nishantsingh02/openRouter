@@ -224,8 +224,8 @@ export function ApiKeys() {
                             </CardContent>
                         </Card>
                     ) : (
-                        <div className="rounded-xl border border-border/50 bg-card/30 overflow-hidden">
-                            <table className="w-full text-sm">
+                        <div className="rounded-xl border border-border/50 bg-card/30 overflow-x-auto">
+                            <table className="w-full text-sm min-w-[700px]">
                                 <thead>
                                     <tr className="border-b border-border/50">
                                         <th className="text-left px-4 py-3 text-xs font-medium text-muted-foreground">Name</th>
@@ -274,22 +274,20 @@ export function ApiKeys() {
                                             </td>
                                             <td className="px-4 py-3">
                                                 <span
-                                                    className={`inline-flex items-center gap-1.5 text-xs font-medium ${
-                                                        key.disabled
+                                                    className={`inline-flex items-center gap-1.5 text-xs font-medium ${key.disable
                                                             ? "text-muted-foreground"
                                                             : "text-emerald-400"
-                                                    }`}
+                                                        }`}
                                                 >
                                                     <span
-                                                        className={`size-1.5 rounded-full ${
-                                                            key.disabled ? "bg-muted-foreground" : "bg-emerald-400"
-                                                        }`}
+                                                        className={`size-1.5 rounded-full ${key.disable ? "bg-muted-foreground" : "bg-emerald-400"
+                                                            }`}
                                                     />
-                                                    {key.disabled ? "Disabled" : "Active"}
+                                                    {key.disable ? "Disabled" : "Active"}
                                                 </span>
                                             </td>
                                             <td className="px-4 py-3 text-right tabular-nums">
-                                                {(key.credisConsumed ?? 0).toLocaleString()}
+                                                {(key.creditConsumed ?? 0).toLocaleString()}
                                             </td>
                                             <td className="px-4 py-3">
                                                 <div className="flex items-center justify-end gap-1">
@@ -299,13 +297,13 @@ export function ApiKeys() {
                                                         onClick={() =>
                                                             toggleMutation.mutate({
                                                                 id: key.id,
-                                                                disabled: !key.disabled,
+                                                                disabled: !key.disable,
                                                             })
                                                         }
                                                         disabled={toggleMutation.isPending}
-                                                        title={key.disabled ? "Enable key" : "Disable key"}
+                                                        title={key.disable ? "Enable key" : "Disable key"}
                                                     >
-                                                        {key.disabled ? (
+                                                        {key.disable ? (
                                                             <ToggleLeft className="size-4 text-muted-foreground" />
                                                         ) : (
                                                             <ToggleRight className="size-4 text-emerald-400" />
