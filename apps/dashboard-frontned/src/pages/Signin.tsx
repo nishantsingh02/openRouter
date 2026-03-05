@@ -45,7 +45,7 @@ export function Signin() {
     });
 
     return (
-        <div className="dark min-h-screen relative flex items-center justify-center bg-background overflow-hidden">
+        <div className="dark min-h-screen w-full relative flex items-center justify-center bg-background overflow-hidden">
             {/* Animated gradient orbs */}
             <div
                 className="absolute w-[600px] h-[600px] rounded-full opacity-[0.07] blur-[120px] animate-pulse"
