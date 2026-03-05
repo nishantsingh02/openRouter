@@ -11,6 +11,7 @@ export const app = new Elysia()
     cors({
       origin: "http://localhost:5173",
       credentials: true,
+      allowedHeaders: ["Content-Type", "Cookie", "Authorization"],
     })
   )
   .use(authApp)

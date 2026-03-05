@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
-config({ path: '../../../packages/db/.env' });
+// config({ path: '../../../packages/db/.env' });
+config({ path: '../../../../../packages/db/.env' });
 
 import jwt from "@elysiajs/jwt";
 import Elysia from "elysia";

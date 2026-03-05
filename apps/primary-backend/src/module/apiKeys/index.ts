@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config({ path: '../../../packages/db/.env' });
+config({ path: 'C:\Users\nraj1\Desktop\My Projects\openRouter\packages\db\.env' });
 
 import Elysia, { status } from "elysia";
 import jwt from "@elysiajs/jwt";
